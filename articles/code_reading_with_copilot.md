@@ -3,7 +3,7 @@ title: "Copilotでらくらくコードリーディング"
 emoji: "🙆"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["GitHub Copilot", "コードリーディング"]
-published: false
+published: true
 ---
 
 GitHub Copilot便利ですね。
