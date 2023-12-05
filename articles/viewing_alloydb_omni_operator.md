@@ -7,6 +7,13 @@ published: true
 published_at: 2023-12-06 08:30
 
 ---
+このエントリーは以下のアドベントカレンダーの6日目の記事です。
+- [3-shake Advent Calendar 2023](https://qiita.com/advent-calendar/2023/3-shake) シリーズ1
+  昨日は[@bells17](https://twitter.com/bells17_)さんによる[Chainguard imagesについて調べてみた](https://zenn.dev/bells17/articles/chainguard-images)でした。
+- [PostgreSQL Advent Calendar 2023](https://qiita.com/advent-calendar/2023/postgresql) シリーズ2
+- [Kubernetes Advent Calendar 2023](https://qiita.com/advent-calendar/2023/kubernetes)
+  昨日は[@yassan168](https://twitter.com/yassan168)さんによる[RKE2ノードのCiliumを使ったeBPFな帯域制限をする話](https://yassan.hatenablog.jp/entry/advent-calendar-2023-1205)でした。
+
 ## 背景を眺める
 2023年10月12日にAlloyDB OmniのGAに併せてAlloyDB Omni on Kubernetesが発表されました。
 https://cloud.google.com/blog/ja/products/databases/announcing-the-general-availability-of-alloydb-omni
