@@ -164,7 +164,7 @@ INNER JOIN public.emp AS emp
     ON dept.deptno = emp.deptno;
 ```
 普通にSELECT文も発行できますね。
-![run select](/images/play_with_yugabytedb_managed_sandbox/3_2_3_run_seelct.png)
+![run select](/images/play_with_yugabytedb_managed_sandbox/3_2_3_run_select.png)
 
 # まとめ
 今回はYugabyteDB ManagedのSandboxクラスターを紹介しました。
