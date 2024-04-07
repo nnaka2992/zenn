@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "textlint 'articles/**/*.md'"
+    "lint": "textlint 'articles/**/*.md'",
+    "lint-staged": "lint-staged",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -13,7 +15,17 @@
   "dependencies": {
     "zenn-cli": "^0.1.150"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "articles/**/*.md": "textlint"
+  },
   "devDependencies": {
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.2",
     "textlint": "^14.0.4",
     "textlint-filter-rule-allowlist": "^4.0.0",
     "textlint-rule-preset-ja-spacing": "^2.3.1",

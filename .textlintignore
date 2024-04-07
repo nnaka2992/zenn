@@ -1,0 +1,13 @@
+# Files that existed before textlint was introduced
+articles/1fa7fb5d03f958.md
+articles/blue_grean_on_postgres_with_sqldeff_and_pgroll.md
+articles/code_reading_with_copilot.md
+articles/db_on_k8s_guide_for_db_engineers.md
+articles/history_of_db_and_newsql.md
+articles/learning_tidb_internal_for_beginner.md
+articles/load_complex_characterset_oracle.md
+articles/play_with_yugabytedb_managed_sandbox.md
+articles/skip_when_key_does_not_exists_in_map_terraform.md
+articles/technics_behind_analytical_database.md
+articles/to_beat_light_speed_on_google_cloud_databases.md
+articles/viewing_alloydb_omni_operator.md
