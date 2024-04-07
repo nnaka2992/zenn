@@ -4,12 +4,20 @@
   "description": "* [📘 How to use](https://zenn.dev/zenn/articles/zenn-cli-guide)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "textlint 'articles/**/*.md'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "zenn-cli": "^0.1.150"
+  },
+  "devDependencies": {
+    "textlint": "^14.0.4",
+    "textlint-filter-rule-allowlist": "^4.0.0",
+    "textlint-rule-preset-ja-spacing": "^2.3.1",
+    "textlint-rule-preset-ja-technical-writing": "^10.0.1",
+    "textlint-rule-prh": "^6.0.0"
   }
 }

@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "preset-ja-technical-writing": true,
+    "preset-ja-spacing": true,
+    "prh": {
+      "rulePaths": [
+        "textlint/rules/prh/WEB+DB_PRESS.yml"
+      ]
+    }
+  },
+  "filters": {
+    "allowlist": [
+      "SRE"
+    ]
+  }
+}
