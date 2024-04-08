@@ -244,36 +244,20 @@ Benchmark Run jobid=66134D38615803E283634313
 ### TPC-C Like
 AlloyDBで実行したものと同様の手順で検証する。
 ```hammerdbcli
-hammerdb>buildschema
-```
-ベンチマークを実行するユーザーと、ログを設定する。
-```hammerdbcli
-hammerdb>vudestroy
-hammerdb>loadscript
-hammerdb>vuset vu 8
-hammerdb>vuset logtotemp 1
-hammerdb>vuset showoutput 1
-hammerdb>vuset unique 1
-hammerdb>vuset timestamps 1
-hammerdb>print vuconf
-Virtual Users = 8
-User Delay(ms) = 500
-Repeat Delay(ms) = 500
-Iterations = 1
-Show Output = 1
-Log Output = 1
-Unique Log Name = 1
-No Log Buffer = 0
-Log Timestamps = 1
-```
-ベンチマーク実行ユーザーを作成する。
-```hammerdbcli
-hammerdb>vucreate
-```
-ベンチマークを実行する。
-```hammerdbcli
 hammerdb>vurun
-
+...
+Vuser 1:TEST RESULT : System achieved 39526 NOPM from 91194 PostgreSQL TPM
+Vuser 1:FINISHED SUCCESS
+Vuser 6:FINISHED SUCCESS
+Vuser 7:FINISHED SUCCESS
+Vuser 9:FINISHED SUCCESS
+Vuser 4:FINISHED SUCCESS
+Vuser 2:FINISHED SUCCESS
+Vuser 3:FINISHED SUCCESS
+Vuser 5:FINISHED SUCCESS
+Vuser 8:FINISHED SUCCESS
+ALL VIRTUAL USERS COMPLETE
+Benchmark Run jobid=661354A3615803E213633313
 ```
 ### TPC-H Like
-
+AlloyDBで実行したものと同様の手順で検証する。
