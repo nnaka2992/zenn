@@ -2,15 +2,15 @@
 title: "AlloyDBの性能を眺める"
 emoji: "📘"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: [""]
-published: false
+topics: ["googlecloud","db","postgresql"]
+published: true
 ---
 # 概要
 Google Cloudが提供するPostgreSQL互換データベースであるAlloyDBのパフォーマンスをトランザクション用途・分析用途の双方から検証する。
-今回の検証ではAlloyDBの上限を見定めるのではなく、CloudSQLと比べてどのようなパフォーマンスになるのかに主眼を置く。
+今回の検証ではAlloyDBの上限を見定めるのではなく、CloudSQLと比べてどのようなパフォーマンスになるを目的とする。
 
 # 検証方法
-同一VPC上にプロビジョニングしたAlloyDBとCloudSQL for PostgreSQLに対して、Compute Engine上のHammerDBからTPC-C LikeなベンチマークとTPC-H Likeなベンチマークを実行する。
+同一VPC上でプロビジョニングしたAlloyDBとCloudSQL for PostgreSQLに対して、Compute Engine上のHammerDBからTPC-C LikeなベンチマークとTPC-H Likeなベンチマークを実行する。
 Compute Engineとデータベース間の接続は、Service Network Connection経由のPrivate IPで疎通する。
 
 # 検証環境
@@ -109,8 +109,9 @@ Success ... loaded library Pgtcl for PostgreSQL
 ...
 ```
 
-## AlloyDBの性能検証
-### TPC-C Like
+## TPC-C Like
+### 設定
+
 HammerDBのベンチマーク実行のための情報を設定する。
 ```hammerdbcli
 # DBにPostgreSQLを指定
@@ -130,7 +131,7 @@ hammerdb>diset tpcc pg_dbase tpcc
 hammerdb>diset tpcc pg_count_ware 200
 # 並列実行数を指定(8並列)
 hammerdb>diset tpcc pg_num_vu 8
-# ロードしたデータ全てを対象にベンチマークを取得するように設定
+# ロードしたデータ全てを対象にベンチマークを取得するよう設定
 hammerdb>diset tpcc pg_allwarehouse true
 # ベンチマークの最初の3分は無視するように設定
 hammerdb>diset tpcc pg_rampup 3
@@ -163,6 +164,7 @@ Log Timestamps = 1
 ```hammerdbcli
 hammerdb>vucreate
 ```
+### AlloyDBの性能検証
 ベンチマークを実行する。
 ```hammerdbcli
 hammerdb>vurun
@@ -180,11 +182,42 @@ Vuser 7:FINISHED SUCCESS
 ALL VIRTUAL USERS COMPLETE
 Benchmark Run jobid=6612DCDE615803E293338333
 ```
-#### 結果
-今回のベンチマークでは新規発注18,664件を実行し、43,386トランザクションを実行したようです。
-また10GBほど積み込まれたデータは20GBほどに増えていました。
 
-### TPC-H Like
+### CloudSQL for PostgreSQLの性能検証
+```hammerdbcli
+hammerdb>vurun
+...
+Vuser 1:TEST RESULT : System achieved 39526 NOPM from 91194 PostgreSQL TPM
+Vuser 1:FINISHED SUCCESS
+Vuser 6:FINISHED SUCCESS
+Vuser 7:FINISHED SUCCESS
+Vuser 9:FINISHED SUCCESS
+Vuser 4:FINISHED SUCCESS
+Vuser 2:FINISHED SUCCESS
+Vuser 3:FINISHED SUCCESS
+Vuser 5:FINISHED SUCCESS
+Vuser 8:FINISHED SUCCESS
+ALL VIRTUAL USERS COMPLETE
+Benchmark Run jobid=661354A3615803E213633313
+```
+
+### 結果
+HammberDBのTPC-C likeはよくあるECサイトを模したワークロードになっています。
+なので結果はさばいた新規注文数(NOPM)とPostgreSQLトランザクション数(TPM)という形で表現されます。
+
+- AlloyDB
+  - 新規発注: 39,526件
+  - トランザクション: 91,194件
+- CloudSQL for PostgreSQL
+  - 新規発注: 18,664件
+  - トランザクション: 43,386件
+
+この結果だけみるとCloudSQL for PostgreSQLがAlloyDBより優れた結果をだしていることが分かります。
+
+これは主にCloudSQL for PostgreSQLで有効にしているデータキャッシュ(計算リソースインスタンスのローカル配置されたSSD)の影響受けているのではないかと考えられます。
+今回のケースではデータセットが数十GB程度なのでデータがすべて計算リソースのインスタンス上に載るため、ネットワークディレイを大きく削減できたのではないかと推察されます。
+
+## TPC-H Like
 ```hammerdbcli
 # DBにPostgreSQLを指定
 hammerdb>dbset db pg
@@ -222,42 +255,73 @@ Log Output = 1
 Unique Log Name = 1
 No Log Buffer = 0
 Log Timestamps = 1
-
+```
+ベンチマーク実行ユーザーを作成する。
+```hammerdbcli
 hammerdb>vucreate
+```
+### AlloyDBの性能検証
+ベンチマークを実行する。
+```hammerdbcli
 hammerdb>vurun
-...
-Vuser 1:Geometric mean of query times returning rows (22) is 8.35650
-Vuser 2:Geometric mean of query times returning rows (22) is 9.22730
-Vuser 3:Geometric mean of query times returning rows (22) is 10.44511
-Vuser 4:Geometric mean of query times returning rows (22) is 9.00088
-Vuser 5:Geometric mean of query times returning rows (22) is 10.95125
-Vuser 6:Geometric mean of query times returning rows (22) is 8.22077
-Vuser 7:Geometric mean of query times returning rows (22) is 9.40581
-Vuser 8:Geometric mean of query times returning rows (22) is 10.69690
 ...
 ALL VIRTUAL USERS COMPLETE
 TPROC-H Driver Script
 Benchmark Run jobid=66134D38615803E283634313
 ```
 
-## CloudSQL for PostgreSQLの性能検証
-### TPC-C Like
-AlloyDBで実行したものと同様の手順で検証する。
-```hammerdbcli
-hammerdb>vurun
-...
-Vuser 1:TEST RESULT : System achieved 39526 NOPM from 91194 PostgreSQL TPM
-Vuser 1:FINISHED SUCCESS
-Vuser 6:FINISHED SUCCESS
-Vuser 7:FINISHED SUCCESS
-Vuser 9:FINISHED SUCCESS
-Vuser 4:FINISHED SUCCESS
-Vuser 2:FINISHED SUCCESS
-Vuser 3:FINISHED SUCCESS
-Vuser 5:FINISHED SUCCESS
-Vuser 8:FINISHED SUCCESS
-ALL VIRTUAL USERS COMPLETE
-Benchmark Run jobid=661354A3615803E213633313
+### CloudSQL for PostgreSQLの性能検証
+6時間程度実行してもCPUが100パーセントに貼りついたままクエリが完了せず。
+
+### 結果
+本来であれば各分析ワークロードのSQLの実行にかかった時間の平均を比較するべきですが、CloudSQL for PostgreSQLではクエリが完了しませんでした^[AlloyDBでは長くても1分以内に完了]。
+
+完了しなかったクエリは以下のものです。
+```sql
+select 
+  s_name, 
+  s_address 
+from 
+  supplier, 
+  nation 
+where 
+  s_suppkey in (
+    select 
+      ps_suppkey 
+    from 
+      partsupp 
+    where 
+      ps_partkey in (
+        select 
+          p_partkey 
+        from 
+          part 
+        where 
+          p_name like ':1%'
+      ) 
+      and ps_availqty > (
+        select 
+          0.5 * sum(l_quantity) 
+        from 
+          lineitem 
+        where 
+          l_partkey = ps_partkey 
+          and l_suppkey = ps_suppkey 
+          and l_shipdate >= date ':2' 
+          and l_shipdate < date ':2' + interval '1 year'
+      )
+  ) 
+  and s_nationkey = n_nationkey 
+  and n_name = ':3' 
+order by 
+  s_name
 ```
-### TPC-H Like
-AlloyDBで実行したものと同様の手順で検証する。
+対象となるテーブルはPKを除きインデックスが貼られていません。
+そのためテーブルどうしを結合する際、不要なカラムもすべてメモリに読み込む必要があり、64GBしかないメモリを消費しつくしてしまったと推察できます。
+
+一方でAlloyDBではカラムナエンジンを利用してインデックスが貼られていないカラムどうしの比較をうまく実行したため、本来であれば著しくパフォーマンスを低下させるクエリを実行できたと考えられます。
+
+## 参考
+- [HammerDBをCLIで使うなど（８）：PostgreSQLにTPC-Hを実行してみる](https://atsuizo.hatenadiary.jp/entry/2019/09/04/090000)
+- [TPC-Council/HammerDB: HammerDB Database Load Testing and Benchmarking Tool](https://github.com/TPC-Council/HammerDB)
+- [データ キャッシュの概要  |  Cloud SQL for MySQL  |  Google Cloud](https://cloud.google.com/sql/docs/mysql/data-cache?hl=ja) 
