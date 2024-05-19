@@ -13,8 +13,12 @@
     }
   },
   "filters": {
-    "allowlist": [
-      "SRE"
-    ]
+    "comments": true,
+    "allowlist": {
+      "allow": [
+        "SRE",
+        "/:::message[\\s\\S]*?:::/m"
+      ]
+    }
   }
 }
