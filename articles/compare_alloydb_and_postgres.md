@@ -83,7 +83,7 @@ libpqが存在することを確認する。
 ```bash
 sudo find / -name libpq.so
 ```
-:::message
+:::message <!-- ignore -->
 /home/nnaka2992/postgresql-15.6/src/interfaces/libpq/libpq.so
 /usr/local/pgsql/lib/libpq.so
 :::
