@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "textlint 'articles/**/*.md'",
+    "lint-fix": "textlint --fix 'articles/**/*.md'",
     "lint-staged": "lint-staged",
     "prepare": "husky install"
   },
