@@ -23,7 +23,7 @@
     "allowlist": {
       "allow": [
         "SRE",
-        "/:::message[\\s\\S]*?:::/m"
+        "/:::message <!-- ignore -->[\\s\\S]*?:::/m"
       ]
     }
   }
