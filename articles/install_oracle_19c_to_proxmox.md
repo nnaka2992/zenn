@@ -159,7 +159,7 @@ EOF
 sqlplus / as sysdba
 ```
 <!-- textlint-disable preset-ja-technical-writing -->
-:::message
+:::message <!-- ignore -->
 SQL*Plus: Release 19.0.0.0.0 - Production on Sun May 19 19:12:10 2024
 Version 19.3.0.0.0
 
@@ -261,7 +261,7 @@ ProxmoxのコンソールからVMを再起動します。
 systmctl status ORCLCDB@lsnrctl
 ```
 
-:::message
+:::message <!-- ignore -->
 ● ORCLCDB@lsnrctl.service - Oracle Net Listener
      Loaded: loaded (/usr/lib/systemd/system/ORCLCDB@lsnrctl.service; enabled; preset: disabled)
      Active: active (running) since Sun 2024-05-19 22:20:40 JST; 3min 29s ago
@@ -280,7 +280,7 @@ May 19 22:20:40 localhost.localdomain systemd[1]: Started Oracle Net Listener.
 systemctl status ORCLCDB@oracledbsystemctl status ORCLCDB@oracledb
 ```
 
-:::message
+:::message <!-- ignore -->
 ● ORCLCDB@oracledb.service - Oracle Database service
      Loaded: loaded (/usr/lib/systemd/system/ORCLCDB@oracledb.service; enabled; preset: disabled)
      Active: active (running) since Sun 2024-05-19 22:20:54 JST; 8min ago
@@ -303,7 +303,7 @@ su - oracle
 sqlplus / as sysdba
 ```
 
-:::message
+:::message <!-- ignore -->
 SQL*Plus: Release 19.0.0.0.0 - Production on Sun May 19 22:33:33 2024
 Version 19.3.0.0.0
 
