@@ -4,7 +4,7 @@ emoji: "🍣"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["googlecloud", "DB", "PostgreSQL", "MySQL", "LLM"]
 published: true 
-published_at: 2024-06-10 08:00
+published_at: 2024-06-10 07:00
 ---
 
 2024年6月5日にGoogle Cloudがパートナー向けに開催したデータ関連の非公開イベントで<!-- ignore-start -->「Google Cloud で利用できるRDBのベクトル検索を徹底解剖！」<!-- ignore-end -->というLTを話しました。
