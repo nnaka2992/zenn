@@ -1,9 +1,8 @@
-
 ---
 title: "Cloud SQL for PostgreSQLで全文検索を試す"
 emoji: "🗂"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["db", "PostgreSQL", "Google Cloud"]
+topics: ["db", "PostgreSQL", "googlecloud", ]
 published: true
 ---
 
@@ -174,7 +173,14 @@ Execution Time: 0.995 ms
 
 ### 実行計画の違い
 
+実行計画からも分かるようにpg_bigmを利用していないテーブルでは全文検索をするのにもちろんINDEXが利用されていないため、全文検索の対象カラムはsequential scanが使われています。
+一方でpg_bigmを利用しているテーブルでは全文検索対象カラムがbitmap Index Scanを利用されていることが分かります。
 
 
 # まとめ
+
+複雑な全文検索による集計処理など行うにはElasticsearchのような全文検索に特化したデータベースを利用したほうがパフォーマンスやリソース効率に優れることが多いですが、既存のアプリケーションに軽めの用途で全文検索を導入したい場合pg_bigmは非常に優れた選択肢と言えます。
+
+一方でpg_bigmの課題としてはILIKE検索[^大文字と小文字を区別した部分一致検索]ができないというものがあります。
+検索対象がアルファベットのみである場合、pg_trgmを利用することでその問題も解決できます。
 
