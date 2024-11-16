@@ -1,10 +1,17 @@
 ---
-title: "Cloud SQL for PostgreSQLで全文検索を試す"
+title:  PostgreSQLので全文検索拡張機能、pg_bigmを試す"
 emoji: "🗂"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["db", "PostgreSQL", "googlecloud", ]
 published: true
 ---
+
+アプリケーションを開発しているとアプリケーションログの分析や、JSONデータに対する分析など全文検索機能を求められることがたびたびあります。
+そういった場合はElasticsearchのように全文検索に特化したデータベースを導入することが多いです。
+
+しかし単純な文章の検索[^特にトランザクション用途]や小規模に利用される場合ばわざわざ専用のデータベースを管理作りたくないというケースが多いです。
+
+今回はPostgreSQLで利用可能な全文検索インデックスの拡張機能であるpg_bigmを紹介します。
 
 # 検証環境の作成
 ## CloudSQL 構成
