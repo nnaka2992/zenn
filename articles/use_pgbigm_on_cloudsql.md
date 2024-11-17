@@ -1,5 +1,5 @@
 ---
-title:  PostgreSQLので全文検索拡張機能、pg_bigmを試す"
+title:  "PostgreSQLので全文検索拡張機能、pg_bigmを試す"
 emoji: "🗂"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["db", "PostgreSQL", "googlecloud", ]
