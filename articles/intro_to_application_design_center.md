@@ -3,7 +3,8 @@ title: "Google CloudのTerraform職人が失職する機能が出てしまった
 emoji: "🤖"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["googlecloud"]
-published_at: 2025-3-11 09:30
+published: true
+published_at: 2025-03-11 09:30
 ---
 
 Google CloudがApplication Design Centerという、構成図を書けばTerraformを書いて、デプロイまで行う機能をリリースしました。^[2025年3月11日現在Previewステータス]
