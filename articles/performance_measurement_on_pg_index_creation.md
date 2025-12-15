@@ -6,8 +6,11 @@ topics: ["PostgreSQL", "Database"]
 published: true
 ---
 
-# PostgreSQLのインデックス作成におけるパラメータの影響の調査
+<!-- ignore-start -->
+このブログは[3-shake Advent Calendar 2025](https://qiita.com/advent-calendar/2025/3-shake) および[PostgreSQL Advent Calendar 2025](https://qiita.com/advent-calendar/2025/postgresql)のクロスポストです。
+<!-- ignore-end -->
 
+---
 PostgreSQLのインデックス作成のパフォーマンスには下記の2つのパラメータが特に大きく影響する。
 
 - maintenance_work_mem
@@ -333,9 +336,6 @@ maintenance_work_mem,parallel_workers,duration_seconds
 
 ## 参考 
 - [CREATE INDEX | PostgreSQL 17.6文書](https://www.postgresql.jp/document/17/html/sql-createindex.html)
-
-
-
 
 ## おまけ1. 検証用データの準備
 
